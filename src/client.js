@@ -3,6 +3,8 @@ import { Switch, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Modals from "./components/Modals/modals";
 import Footer from "./components/Footer/Footer";
+import ErrorPage from "./pages/ErrorPage/Error";
+
 import Home from "./pages/Home/Home";
 import "antd/dist/antd.css";
 import "./App.css";
@@ -18,6 +20,7 @@ function Client() {
       <Header></Header>
       <Switch>
         <Route path="/" exact={true} component={Home}></Route>
+        <Route component={ErrorPage} />
       </Switch>
       <Footer></Footer>
       <Modals></Modals>

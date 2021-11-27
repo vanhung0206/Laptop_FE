@@ -8,8 +8,6 @@ import { closeLogin } from "./../../actions/index";
 
 const Modals = () => {
   const display = useSelector((state) => state.modalLogin);
-  const display1 = useSelector((state) => state.user);
-  const display2 = useSelector((state) => state.cart);
 
   const dispatch = useDispatch();
   function closeModal(e) {
