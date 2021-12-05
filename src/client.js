@@ -8,6 +8,7 @@ import Products from "./pages/Products/Products";
 import DetailProduct from "./pages/DetailProduct/DetailProduct";
 import Cart from "./pages/Cart/Cart";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
+import OrderPage from "./pages/Order/Order";
 
 import Home from "./pages/Home/Home";
 import "antd/dist/antd.css";
@@ -28,6 +29,7 @@ function Client() {
         <Route path="/DetailProduct/:id" component={DetailProduct}></Route>
         <Route path="/Cart" component={Cart}></Route>
         <Route path="/Forgot/:id" component={ForgotPassword} />
+        <Route path="/user/order" component={OrderPage} />
 
         <Route component={ErrorPage} />
       </Switch>
