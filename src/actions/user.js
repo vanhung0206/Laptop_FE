@@ -1,29 +1,28 @@
-import * as types from './../constants/ActionType';
-import CallApi from '../helper/axiosClient'
+import * as types from "./../constants/ActionType";
+import CallApi from "../helper/axiosClient";
 
-export const getApiUser = ()=>dispatch=>{
+export const getApiUser = () => (dispatch) => {
+    console.log("call api");
     CallApi({
-        url : "http://localhost:8080/api/auth/user",
-        method : "get"
-    })
-    .then(data=>{
-        if(data&&data.statusCode==200){
+        url: "/api/auth/user",
+        method: "get",
+    }).then((data) => {
+        if (data && data.statusCode === 200) {
             dispatch(getUser(data));
-        }
-        else{
+        } else {
             localStorage.removeItem("Authorization");
             dispatch(logOutUser());
         }
-    })
-}
-export const getUser = (data)=>{
+    });
+};
+export const getUser = (data) => {
     return {
-        type : types.GET_USER,
+        type: types.GET_USER,
         data,
-    }
-}
-export const logOutUser = ()=>{
+    };
+};
+export const logOutUser = () => {
     return {
-        type : types.LOGOUT_USER
-    }
-}
+        type: types.LOGOUT_USER,
+    };
+};

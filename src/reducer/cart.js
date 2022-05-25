@@ -10,7 +10,7 @@ const reducer = (state = initialState, action) => {
                 product.soluong = 1;
             }
             for (let i = 0; i < state.length; i++) {
-                if (product._id == state[i]._id) {
+                if (product.id == state[i].id) {
                     product.soluong += 1;
                     state.splice(state.length - 1, 1);
                     break;
@@ -21,7 +21,7 @@ const reducer = (state = initialState, action) => {
             return [...state];
         case types.CHANGE_QUANTITY_CART:
             for (let i = 0; i < state.length; i++) {
-                if (product._id == state[i]._id) {
+                if (product.id == state[i].id) {
                     if(product.soluong+number>0){
                         product.soluong += number;
                         state.splice(i, 1, product);
@@ -35,7 +35,7 @@ const reducer = (state = initialState, action) => {
             return [...state];
         case types.DELETE_CART_ITEM:
             for (let i = 0; i < state.length; i++) {
-                if (product._id == state[i]._id) {
+                if (product.id == state[i].id) {
                     state.splice(i, 1);
                 }
             }

@@ -20,172 +20,207 @@ import SlideProduct from "../../components/Slider/slideproduct";
 import axiosClient from "../../helper/axiosClient";
 
 const Home = () => {
-  const [ListProductKM, setListProductKM] = useState(null);
-  const [ListProductHot, setListProductHot] = useState(null);
-  const [ListProductBC, setListProductBC] = useState(null);
-  const [ListProductPK, setListProductPK] = useState(null);
-  useEffect(() => {
-    async function getListProduct(category, page, type) {
-      var Data = await axiosClient({
-        url: `http://localhost:8080/api/products/${category}?page=${page}&type=${type}`,
-        method: "get",
-      });
-      if (category == "Laptop") {
-        switch (type) {
-          case 1:
-            setListProductKM(Data.listProducts);
-            break;
-          case 2:
-            setListProductHot(Data.listProducts);
-            break;
-          case 3:
-            setListProductBC(Data.listProducts);
-            break;
-          default:
-            break;
+    const [ListProductKM, setListProductKM] = useState(null);
+    const [ListProductHot, setListProductHot] = useState(null);
+    const [ListProductBC, setListProductBC] = useState(null);
+    const [ListProductPK, setListProductPK] = useState(null);
+    useEffect(() => {
+        async function getListProduct(category, page, type) {
+            var Data = await axiosClient({
+                url: `/api/products/${category}?page=${page}&type=${type}`,
+                method: "get",
+            });
+            if (category === "Laptop") {
+                switch (type) {
+                    case 1:
+                        setListProductKM(Data.listProducts);
+                        break;
+                    case 2:
+                        setListProductHot(Data.listProducts);
+                        break;
+                    case 3:
+                        setListProductBC(Data.listProducts);
+                        break;
+                    default:
+                        break;
+                }
+            } else setListProductPK(Data.listProducts);
         }
-      } else setListProductPK(Data.listProducts);
-    }
-    getListProduct("Laptop", 1, 1)
-      .then(() => getListProduct("Laptop", 1, 2))
-      .then(() => getListProduct("Laptop", 1, 3))
-      .then(() => getListProduct("PK", 1, 1));
-  }, []);
-  return (
-    <div className="main">
-      <div className="slide-home">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="p-0 col-12">
-              <Slider></Slider>
-            </div>
-          </div>
-        </div>
-      </div>
-      <Banner
-        listBanner={[ImageBanner1, ImageBanner2, ImageBanner3, ImageBanner4]}
-      ></Banner>
-      <div className="product-deal-hot">
-        <div class="container">
-          <div class="product-deal-hot-wrap">
-            <div class="product-hot-intro">
-              <h3 class="product-deal-hot-title">
-                Laptop Khuyến Mãi Trong Tháng
-              </h3>
-              <Link to="/Products/Laptop?type=2" class="product-hot-btn">
-                Xem tất cả <i class="fas fa-chevron-right"></i>
-              </Link>
-            </div>
-            <div class="row mx-4">
-              <div className="col-12">
-                <SlideProduct ListProduct={ListProductKM}></SlideProduct>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <Banner listBanner={[ImageBanner5]} />
-      <div className="product-deal-hot">
-        <div class="container">
-          <div class="product-deal-hot-wrap">
-            <div class="product-hot-intro">
-              <h3 class="product-deal-hot-title">
-                Laptop Bán Chạy Trong Tháng
-              </h3>
-              <Link to="/Products/Laptop?type=3" class="product-hot-btn">
-                Xem tất cả <i class="fas fa-chevron-right"></i>
-              </Link>
-            </div>
-            <div class="row mx-4">
-              <div className="col-12">
-                <SlideProduct ListProduct={ListProductBC}></SlideProduct>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <Banner listBanner={[ImageBanner6, ImageBanner7, ImageBanner8]} />
-      <div className="product-deal-hot">
-        <div class="container">
-          <div class="product-deal-hot-wrap">
-            <div class="product-hot-intro">
-              <h3 class="product-deal-hot-title">
-                Laptop Mới Nhất Trong Tháng
-              </h3>
-              <Link to="/Products/Laptop" class="product-hot-btn">
-                Xem tất cả <i class="fas fa-chevron-right"></i>
-              </Link>
-            </div>
-            <div class="row mx-4">
-              <div className="col-12">
-                <SlideProduct ListProduct={ListProductHot}></SlideProduct>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="product-brand">
-        <div class="container">
-          <div class="product-brand-wrap">
-            <h3 class="product-brand-title">Thương hiệu nổi bật</h3>
-            <div class="row px-4 mt-2">
-              <div class="col-lg-3 p-0">
-                <div class="product-brand-item">
-                  <div class="brand-img-wrap">
-                    <img src={ImageBanner9} alt="" class="product-brand-img" />
-                  </div>
-                  <div class="product-band-desc">
-                    <p class="product-brand-name">MSI</p>
-                    <p class="product-brand-content">
-                      Made for Gamers and Creator
-                    </p>
-                  </div>
+        getListProduct("Laptop", 1, 1)
+            .then(() => getListProduct("Laptop", 1, 2))
+            .then(() => getListProduct("Laptop", 1, 3))
+            .then(() => getListProduct("PK", 1, 1));
+    }, []);
+    return (
+        <div className="main">
+            <div className="slide-home">
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="p-0 col-12">
+                            <Slider></Slider>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="col-lg-3 p-0">
-                <div class="product-brand-item">
-                  <div class="brand-img-wrap">
-                    <img src={ImageBanner10} alt="" class="product-brand-img" />
-                  </div>
-                  <div class="product-band-desc">
-                    <p class="product-brand-name">HP</p>
-                    <p class="product-brand-content">
-                      Lễ hội máy tính HP - Ưu đãi cực phê
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 p-0">
-                <div class="product-brand-item">
-                  <div class="brand-img-wrap">
-                    <img src={ImageBanner11} alt="" class="product-brand-img" />
-                  </div>{" "}
-                  <div class="product-band-desc">
-                    <p class="product-brand-name">LG</p>
-                    <p class="product-brand-content">Tháng LG quà mê ly</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 p-0">
-                <div class="product-brand-item">
-                  <div class="brand-img-wrap">
-                    <img src={ImageBanner12} alt="" class="product-brand-img" />
-                  </div>{" "}
-                  <div class="product-band-desc">
-                    <p class="product-brand-name">Lenovo</p>
-                    <p class="product-brand-content">
-                      Laptop chơi game thực thụ
-                    </p>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
+            <Banner
+                listBanner={[
+                    ImageBanner1,
+                    ImageBanner2,
+                    ImageBanner3,
+                    ImageBanner4,
+                ]}
+            ></Banner>
+            <div className="product-deal-hot">
+                <div class="container">
+                    <div class="product-deal-hot-wrap">
+                        <div class="product-hot-intro">
+                            <h3 class="product-deal-hot-title">
+                                Laptop Khuyến Mãi Trong Tháng
+                            </h3>
+                            <Link
+                                to="/Products/Laptop?type=2"
+                                class="product-hot-btn"
+                            >
+                                Xem tất cả <i class="fas fa-chevron-right"></i>
+                            </Link>
+                        </div>
+                        <div class="row mx-4">
+                            <div className="col-12">
+                                <SlideProduct
+                                    ListProduct={ListProductKM}
+                                ></SlideProduct>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <Banner listBanner={[ImageBanner5]} />
+            <div className="product-deal-hot">
+                <div class="container">
+                    <div class="product-deal-hot-wrap">
+                        <div class="product-hot-intro">
+                            <h3 class="product-deal-hot-title">
+                                Laptop Bán Chạy Trong Tháng
+                            </h3>
+                            <Link
+                                to="/Products/Laptop?type=3"
+                                class="product-hot-btn"
+                            >
+                                Xem tất cả <i class="fas fa-chevron-right"></i>
+                            </Link>
+                        </div>
+                        <div class="row mx-4">
+                            <div className="col-12">
+                                <SlideProduct
+                                    ListProduct={ListProductBC}
+                                ></SlideProduct>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <Banner listBanner={[ImageBanner6, ImageBanner7, ImageBanner8]} />
+            <div className="product-deal-hot">
+                <div class="container">
+                    <div class="product-deal-hot-wrap">
+                        <div class="product-hot-intro">
+                            <h3 class="product-deal-hot-title">
+                                Laptop Mới Nhất Trong Tháng
+                            </h3>
+                            <Link to="/Products/Laptop" class="product-hot-btn">
+                                Xem tất cả <i class="fas fa-chevron-right"></i>
+                            </Link>
+                        </div>
+                        <div class="row mx-4">
+                            <div className="col-12">
+                                <SlideProduct
+                                    ListProduct={ListProductHot}
+                                ></SlideProduct>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-brand">
+                <div class="container">
+                    <div class="product-brand-wrap">
+                        <h3 class="product-brand-title">Thương hiệu nổi bật</h3>
+                        <div class="row px-4 mt-2">
+                            <div class="col-lg-3 p-0">
+                                <div class="product-brand-item">
+                                    <div class="brand-img-wrap">
+                                        <img
+                                            src={ImageBanner9}
+                                            alt=""
+                                            class="product-brand-img"
+                                        />
+                                    </div>
+                                    <div class="product-band-desc">
+                                        <p class="product-brand-name">MSI</p>
+                                        <p class="product-brand-content">
+                                            Made for Gamers and Creator
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 p-0">
+                                <div class="product-brand-item">
+                                    <div class="brand-img-wrap">
+                                        <img
+                                            src={ImageBanner10}
+                                            alt=""
+                                            class="product-brand-img"
+                                        />
+                                    </div>
+                                    <div class="product-band-desc">
+                                        <p class="product-brand-name">HP</p>
+                                        <p class="product-brand-content">
+                                            Lễ hội máy tính HP - Ưu đãi cực phê
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 p-0">
+                                <div class="product-brand-item">
+                                    <div class="brand-img-wrap">
+                                        <img
+                                            src={ImageBanner11}
+                                            alt=""
+                                            class="product-brand-img"
+                                        />
+                                    </div>{" "}
+                                    <div class="product-band-desc">
+                                        <p class="product-brand-name">LG</p>
+                                        <p class="product-brand-content">
+                                            Tháng LG quà mê ly
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 p-0">
+                                <div class="product-brand-item">
+                                    <div class="brand-img-wrap">
+                                        <img
+                                            src={ImageBanner12}
+                                            alt=""
+                                            class="product-brand-img"
+                                        />
+                                    </div>{" "}
+                                    <div class="product-band-desc">
+                                        <p class="product-brand-name">Lenovo</p>
+                                        <p class="product-brand-content">
+                                            Laptop chơi game thực thụ
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <Product_PK ListProduct={ListProductPK} />
         </div>
-      </div>
-      <Product_PK ListProduct={ListProductPK} />
-    </div>
-  );
+    );
 };
 
 export default Home;
