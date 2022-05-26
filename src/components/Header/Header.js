@@ -33,13 +33,17 @@ const Header = () => {
         setuserDropdown(!userDropdown);
     }
     useEffect(() => {
-        window.addEventListener("scroll", (e) => {
+        function handelScroll(e) {
             if (e.target.defaultView.scrollY > 100) {
                 setHideHeader(true);
             } else {
                 setHideHeader(false);
             }
-        });
+        }
+        window.addEventListener("scroll", handelScroll);
+        return () => {
+            window.removeEventListener("scroll", handelScroll);
+        };
     }, []);
     const [searchValue, setsearchValue] = useState(null);
     function onChangeValue(e) {

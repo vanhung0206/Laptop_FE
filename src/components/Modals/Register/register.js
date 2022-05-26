@@ -114,7 +114,6 @@ function Register(props) {
         });
     }
     function responseGoogle(response) {
-        console.log(response);
         axiosClient({
             url: `/api/auth/register/facebook`,
             method: "post",
@@ -173,7 +172,7 @@ function Register(props) {
                     name="username"
                     value={valueForm.username}
                     required
-                    placeholder="Tên Tài Khoản"
+                    placeholder="Tên người dùng"
                     onChange={onChangeForm}
                 />
                 <input

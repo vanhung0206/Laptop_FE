@@ -149,7 +149,7 @@ const Login = (props) => {
                     className="modal__body__sign-in__form-input"
                     name="username"
                     value={valueForm.username}
-                    placeholder="Tên Tài Khoản"
+                    placeholder="Tên người dùng"
                     onChange={onChangeForm}
                 />
                 <input
