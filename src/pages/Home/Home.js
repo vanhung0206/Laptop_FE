@@ -18,39 +18,56 @@ import ImageBanner11 from "../../assets/img/banner8.webp";
 import ImageBanner12 from "../../assets/img/banner9.webp";
 import SlideProduct from "../../components/Slider/slideproduct";
 import axiosClient from "../../helper/axiosClient";
+import Loader from "react-loader-spinner";
 
 const Home = () => {
     const [ListProductKM, setListProductKM] = useState(null);
     const [ListProductHot, setListProductHot] = useState(null);
     const [ListProductBC, setListProductBC] = useState(null);
     const [ListProductPK, setListProductPK] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         async function getListProduct(category, page, type) {
-            var Data = await axiosClient({
+            return axiosClient({
                 url: `/api/products/${category}?page=${page}&type=${type}`,
                 method: "get",
             });
-            if (category === "Laptop") {
-                switch (type) {
-                    case 1:
-                        setListProductKM(Data.listProducts);
-                        break;
-                    case 2:
-                        setListProductHot(Data.listProducts);
-                        break;
-                    case 3:
-                        setListProductBC(Data.listProducts);
-                        break;
-                    default:
-                        break;
-                }
-            } else setListProductPK(Data.listProducts);
         }
-        getListProduct("Laptop", 1, 1)
-            .then(() => getListProduct("Laptop", 1, 2))
-            .then(() => getListProduct("Laptop", 1, 3))
-            .then(() => getListProduct("PK", 1, 1));
+        const listPromise = [];
+        listPromise.push(
+            getListProduct("Laptop", 1, 1),
+            getListProduct("Laptop", 1, 2),
+            getListProduct("Laptop", 1, 3),
+            getListProduct("PK", 1, 1)
+        );
+        Promise.all(listPromise)
+            .then((data) => {
+                console.log(
+                    "🚀 ~ file: Home.js ~ line 45 ~ .then ~ data",
+                    data
+                );
+                setListProductKM(data[0].listProducts);
+                setListProductHot(data[1].listProducts);
+                setListProductBC(data[2].listProducts);
+                setListProductPK(data[3].listProducts);
+                setIsLoading(false);
+            })
+            .catch(() => setIsLoading(false));
     }, []);
+    if (isLoading)
+        return (
+            <Loader
+                type="Circles"
+                color="#f50057"
+                height={100}
+                width={100}
+                style={{
+                    padding: "30px 0",
+                    textAlign: "center",
+                    width: "100%",
+                }}
+            />
+        );
     return (
         <div className="main">
             <div className="slide-home">

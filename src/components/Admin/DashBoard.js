@@ -1,13 +1,14 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { Bar, Chart } from "react-chartjs-2";
-import * as Zoom from "chartjs-plugin-zoom";
+import React, { useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { Chart as ChartJS, registerables } from "chart.js";
+import { Bar } from "react-chartjs-2";
 import AxiosInstance from "../../helper/axiosClient";
 import Loader from "react-loader-spinner";
 
 const Charjs = (props) => {
-    useEffect(() => {
-        Chart.register(Zoom);
+    useLayoutEffect(() => {
+        ChartJS.register(...registerables);
     }, []);
+
     const { data, options, title } = props;
     return (
         <>

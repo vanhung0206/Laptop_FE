@@ -5,6 +5,7 @@ import client from "./client";
 import CallApi from "./helper/axiosClient";
 import admin from "./pages/admin/admin";
 import * as action from "./actions/user";
+import Loader from "react-loader-spinner";
 function App() {
     const [isCalled, setIsCalled] = useState(false);
     const token = localStorage.getItem("Authorization");
@@ -36,7 +37,22 @@ function App() {
         }
     }, []);
 
-    if (!isCalled) return null;
+    if (!isCalled)
+        return (
+            <Loader
+                type="Circles"
+                color="#f50057"
+                height={100}
+                width={100}
+                style={{
+                    position: "fixed",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    textAlign: "center",
+                    width: "100%",
+                }}
+            />
+        );
 
     return (
         <Router>
